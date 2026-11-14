@@ -111,11 +111,7 @@ h1, h2, h3, p { margin: 0; }
 .hero .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 
 .signal { position: relative; margin-top: clamp(28px, 5vw, 56px); height: clamp(150px, 20vw, 220px); }
-.signal canvas {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-}
+.signal canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .signal .tag {
   position: absolute; bottom: 0; transform: translateX(-50%);
   font: 500 10.5px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--dim);
@@ -450,52 +446,64 @@ gtag('config', 'G-MPC8Y15TBY');
   (function () {
     var c = document.getElementById('signal');
     if (!c || !c.getContext) return;
-    var ctx = c.getContext('2d'), W = 0, H = 0, visible = true, raf = 0;
-    function size() {
+    var ctx = c.getContext('2d'), W = 0, H = 0, cx = 0, sig = 0, visible = true, running = false, G = {};
+    function edge(rgb, a) {            /* fades out toward the left and right edges */
+      var g = ctx.createLinearGradient(0, 0, W, 0);
+      g.addColorStop(0, 'rgba(' + rgb + ',0)'); g.addColorStop(.14, 'rgba(' + rgb + ',' + a + ')');
+      g.addColorStop(.86, 'rgba(' + rgb + ',' + a + ')'); g.addColorStop(1, 'rgba(' + rgb + ',0)');
+      return g;
+    }
+    function peak(a) {                 /* colour only around the signal */
+      var g = ctx.createLinearGradient(cx - sig * 2.4, 0, cx + sig * 2.4, 0);
+      g.addColorStop(0, 'rgba(255,176,32,0)'); g.addColorStop(.3, 'rgba(255,176,32,' + a + ')');
+      g.addColorStop(.7, 'rgba(255,176,32,' + a + ')'); g.addColorStop(1, 'rgba(255,176,32,0)');
+      return g;
+    }
+    function size() {                  /* rebuild only when the canvas really changed size */
+      var w = c.clientWidth, h = c.clientHeight;
+      if (w === W && h === H) return false;
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = c.clientWidth; H = c.clientHeight;
+      W = w; H = h;
       c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      cx = W * .5; sig = Math.max(46, Math.min(W * .075, 92));
+      G = { n1: edge('120,136,180', .16), n2: edge('120,136,180', .22), base: edge('132,148,192', .5),
+            g1: peak(.06), g2: peak(.12), g3: peak(.28), core: peak(1) };
+      return true;
     }
     function noise(x, t, s) {
       return Math.sin(x * .043 + t * 1.3 + s) * .46 + Math.sin(x * .097 - t * .9 + s * 2.1) * .3 +
              Math.sin(x * .23 + t * 2.1 + s * 3.7) * .16 + Math.sin(x * .51 - t * 3.3 + s * 5.3) * .08;
     }
     function trace(t, seed, amp, withSignal) {
-      var cx = W * .5, sig = Math.max(46, Math.min(W * .075, 92)), mid = H * .5, x, d, env, y;
+      var mid = H * .5, lift = H * .38 * (.9 + .1 * Math.sin(t * .9)), x, d, env, y;
       ctx.beginPath();
       for (x = 0; x <= W; x += 2) {
         d = (x - cx) / sig; env = Math.exp(-d * d);
         y = mid + noise(x, t, seed) * amp * (1 - env * .9);
-        if (withSignal) y -= env * Math.cos(d * 4.4) * H * .38 * (.9 + .1 * Math.sin(t * .9));
+        if (withSignal) y -= env * Math.cos(d * 4.4) * lift;
         if (x) ctx.lineTo(x, y); else ctx.moveTo(x, y);
       }
-      return { cx: cx, sig: sig };
     }
+    function stroke(style, width) { ctx.strokeStyle = style; ctx.lineWidth = width; ctx.stroke(); }
     function draw(ms) {
-      var t = ms / 1000 * .55, g, m;
+      var t = ms / 1000 * .55;
       ctx.clearRect(0, 0, W, H);
-      ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.shadowBlur = 0;
-      trace(t * .8, 4.2, H * .13, false); ctx.strokeStyle = 'rgba(120,136,180,.16)'; ctx.lineWidth = 1; ctx.stroke();
-      trace(t * 1.15, 9.7, H * .1, false); ctx.strokeStyle = 'rgba(120,136,180,.22)'; ctx.lineWidth = 1; ctx.stroke();
-      m = trace(t, 1, H * .085, true); ctx.strokeStyle = 'rgba(132,148,192,.5)'; ctx.lineWidth = 1.25; ctx.stroke();
-      g = ctx.createLinearGradient(m.cx - m.sig * 2.4, 0, m.cx + m.sig * 2.4, 0);
-      g.addColorStop(0, 'rgba(255,176,32,0)'); g.addColorStop(.3, 'rgba(255,176,32,1)');
-      g.addColorStop(.7, 'rgba(255,176,32,1)'); g.addColorStop(1, 'rgba(255,176,32,0)');
-      trace(t, 1, H * .085, true);
-      ctx.strokeStyle = g; ctx.lineWidth = 2.5; ctx.shadowColor = 'rgba(255,176,32,.75)'; ctx.shadowBlur = 18; ctx.stroke();
+      trace(t * .8, 4.2, H * .13, false); stroke(G.n1, 1);
+      trace(t * 1.15, 9.7, H * .1, false); stroke(G.n2, 1);
+      trace(t, 1, H * .085, true);       /* one path, stroked five times: line, three glow layers, core */
+      stroke(G.base, 1.25); stroke(G.g1, 16); stroke(G.g2, 9); stroke(G.g3, 5); stroke(G.core, 2.5);
     }
-    function loop(ms) { draw(ms); if (visible) raf = requestAnimationFrame(loop); }
+    function loop(ms) { if (!visible) { running = false; return; } draw(ms); requestAnimationFrame(loop); }
+    function start() { if (!running) { running = true; requestAnimationFrame(loop); } }
     size();
-    addEventListener('resize', function () { size(); if (reduce) draw(1800); });
+    addEventListener('resize', function () { if (size() && reduce) draw(1800); });
     if (reduce) { draw(1800); return; }
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) {
-        var was = visible; visible = es[0].isIntersecting;
-        if (visible && !was) raf = requestAnimationFrame(loop);
-      }).observe(c);
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) start(); }).observe(c);
     }
-    raf = requestAnimationFrame(loop);
+    start();
   })();
 
   /* signup form */
