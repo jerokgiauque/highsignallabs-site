@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>High Signal Labs</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0e0f1e">
+<meta name="description" content="High Signal Labs turns early signals in workforce data and market sentiment into briefings for executives and investors who move first.">
+<meta property="og:site_name" content="High Signal Labs">
+<meta property="og:title" content="High Signal Labs">
+<meta property="og:type" content="website">
+<meta property="og:description" content="High Signal Labs turns early signals in workforce data and market sentiment into briefings for executives and investors who move first.">
+<meta property="og:image" content="https://highsignallabs.com/assets/images/share.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://highsignallabs.com">
+<meta property="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://highsignallabs.com">
+<link rel="icon" type="image/svg+xml" href="assets/images/mark.svg">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+/* Signup form settings. endpoint = where submissions are POSTed (Web3Forms, Formspree, etc).
+   Leave endpoint empty and the form opens a pre-filled email instead. */
+window.HSL_FORM = {
+  endpoint: "",
+  extra: { subject: "New High Signal Labs signup", from_name: "highsignallabs.com" }
+};
+document.documentElement.className = 'js';
+</script>
+
+<style>
+:root {
+  --bg: #0e0f1e;
+  --panel: rgba(255, 255, 255, .022);
+  --panel-strong: rgba(255, 255, 255, .04);
+  --line: rgba(255, 255, 255, .085);
+  --line-strong: rgba(255, 255, 255, .16);
+  --text: #f1f3f9;
+  --body: #aab2c8;
+  --dim: #6a7492;
+  --trace: #4a5474;
+  --accent: #ffb020;
+  --accent-ink: #1c1303;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --gutter: clamp(20px, 5vw, 48px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 600px at 100% 0%, rgba(0, 60, 140, .2), transparent 65%),
+    radial-gradient(700px 520px at 0% 38%, rgba(64, 44, 130, .16), transparent 70%),
+    radial-gradient(900px 700px at 100% 100%, rgba(0, 70, 150, .12), transparent 65%);
+  background-attachment: fixed;
+  color: var(--body);
+  font: 400 17px/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); }
+
+.eyebrow {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.eyebrow .n { color: var(--dim); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 26px;
+  border: 1px solid transparent; border-radius: 999px;
+  font: 500 15px/1 var(--sans); letter-spacing: -.005em;
+  text-decoration: none; cursor: pointer;
+  transition: background-color .2s, border-color .2s, color .2s, transform .2s, box-shadow .2s;
+}
+.btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); font-weight: 600; box-shadow: 0 0 0 0 rgba(255,176,32, 0); }
+.btn-primary:hover { background: #ffc24d; box-shadow: 0 8px 28px -8px rgba(255,176,32, .6); transform: translateY(-1px); }
+.btn-ghost { border-color: var(--line-strong); color: var(--text); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- Hero ---------- */
+.hero { padding: clamp(56px, 9vw, 104px) 0 0; text-align: center; }
+.hero .logo { width: 68px; height: auto; margin: 0 auto 30px; }
+.hero h1 {
+  margin-top: 22px;
+  font: 500 clamp(2.6rem, 7vw, 4.5rem)/1.04 var(--sans);
+  letter-spacing: -.035em; color: var(--text);
+}
+.hero h1 span { color: var(--accent); }
+.hero .lede {
+  margin: 24px auto 0; max-width: 30em; text-wrap: balance;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.55; color: #c3cadb;
+}
+.hero .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+.signal { position: relative; margin-top: clamp(28px, 5vw, 56px); height: clamp(150px, 20vw, 220px); }
+.signal canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+.signal .tag {
+  position: absolute; bottom: 0; transform: translateX(-50%);
+  font: 500 10.5px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--dim);
+}
+.signal .tag.l { left: 20%; } .signal .tag.r { left: 80%; }
+.signal .tag.c { left: 50%; color: var(--accent); }
+.signal .tag.c::before {
+  content: ''; display: block; width: 1px; height: 14px; margin: 0 auto 8px;
+  background: linear-gradient(var(--accent), transparent); transform: rotate(180deg);
+}
+
+/* ---------- Sections ---------- */
+main { padding: clamp(72px, 10vw, 128px) 0 0; }
+.stack { display: grid; gap: clamp(40px, 7vw, 88px); }
+
+.card {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch;
+  border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+  background: var(--panel);
+}
+.card.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.card.flip .plate { order: 2; border-right: 0; border-left: 1px solid var(--line); }
+.plate {
+  position: relative; display: grid; place-items: center;
+  min-height: 320px; padding: 40px;
+  border-right: 1px solid var(--line);
+  background: rgba(4, 8, 22, .28);
+}
+.plate svg { position: relative; z-index: 1; width: min(240px, 72%); height: auto; }
+.card .copy { padding: clamp(32px, 5vw, 56px); align-self: center; }
+.card h2, .access h2 {
+  margin-top: 18px;
+  font: 500 clamp(1.65rem, 3.2vw, 2.3rem)/1.15 var(--sans);
+  letter-spacing: -.025em; color: var(--text);
+}
+.card p.text { margin-top: 16px; max-width: 34em; }
+
+.status {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 28px;
+  font: 500 11.5px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--dim);
+}
+.status i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(255,176,32, .6); animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,176,32, .55); } 80%, 100% { box-shadow: 0 0 0 9px rgba(255,176,32, 0); } }
+
+/* icon system: one stroke weight, two tones */
+.ico { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ico .a { stroke: var(--accent); stroke-width: 2.25; }
+.ico .t { stroke: var(--trace); stroke-width: 1.5; }
+.ico .af { fill: var(--accent); stroke: none; }
+.ico .tf { fill: var(--trace); stroke: none; }
+.ico .glow { fill: var(--accent); opacity: .16; stroke: none; }
+.ico .dash { stroke-dasharray: 3 5; }
+
+.group { display: grid; gap: 20px; }
+.group > .eyebrow { color: var(--dim); padding-left: 4px; }
+.trio {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--line); border-radius: 20px; background: var(--panel);
+}
+.trio > div { padding: clamp(28px, 4vw, 44px); }
+.trio > div + div { border-left: 1px solid var(--line); }
+.trio svg { width: 100px; height: 100px; margin-left: -6px; }
+.trio .ico .a { stroke-width: 3; }
+.trio .ico .t { stroke-width: 2; }
+.trio h3 { margin-top: 24px; font: 500 1.375rem/1.2 var(--sans); letter-spacing: -.02em; color: var(--text); }
+.trio p.text { margin-top: 10px; }
+
+/* ---------- Access / form ---------- */
+.access { padding: clamp(96px, 13vw, 168px) 0 0; text-align: center; }
+.access p.text { margin: 16px auto 0; max-width: 36em; }
+form {
+  margin: 36px auto 0; max-width: 560px; text-align: left;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line); border-radius: 20px; background: var(--panel);
+}
+form .full { grid-column: 1 / -1; }
+label.sr, .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+input[type=text], input[type=email] {
+  width: 100%; min-height: 50px; padding: 0 18px;
+  border: 1px solid var(--line-strong); border-radius: 12px;
+  background: rgba(4, 8, 22, .5); color: var(--text);
+  font: 400 16px/1 var(--sans);
+  transition: border-color .2s, background-color .2s;
+}
+input::placeholder { color: var(--dim); }
+input:hover { border-color: rgba(255, 255, 255, .28); }
+input:focus { outline: none; border-color: var(--accent); background: rgba(4, 8, 22, .8); }
+form .btn { width: 100%; min-height: 52px; border-radius: 12px; font-size: 16px; }
+form .btn[disabled] { opacity: .6; cursor: progress; transform: none; }
+.msg { display: none; margin: 4px 2px 0; font-size: 15px; line-height: 1.5; }
+.msg.ok { display: block; color: var(--accent); }
+.msg.err { display: block; color: #ff9d8a; }
+
+/* ---------- Footer ---------- */
+footer { margin-top: clamp(88px, 12vw, 152px); border-top: 1px solid var(--line); }
+footer .wrap { padding-top: 28px; padding-bottom: 36px; display: flex; flex-wrap: wrap; gap: 18px 24px; align-items: center; justify-content: space-between; }
+footer p { font-size: 13.5px; color: var(--dim); }
+.social { display: flex; gap: 6px; margin: 0 -10px 0 0; padding: 0; list-style: none; }
+.social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--body); transition: color .2s, background-color .2s; }
+.social a:hover { color: var(--accent); background: var(--panel-strong); }
+.social svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ---------- Reveal ---------- */
+.js .rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+.js .rv.in { opacity: 1; transform: none; }
+
+@media (max-width: 800px) {
+  body { font-size: 16px; }
+  .card, .card.flip { grid-template-columns: 1fr; }
+  .card.flip .plate { order: 0; border-left: 0; }
+  .plate, .card.flip .plate { min-height: 210px; padding: 28px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .plate svg { width: 150px; }
+  .trio { grid-template-columns: 1fr; }
+  .trio > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .trio svg { width: 84px; height: 84px; }
+  .signal .tag.l, .signal .tag.r { display: none; }
+}
+@media (max-width: 520px) {
+  form { grid-template-columns: 1fr; }
+  .hero .actions .btn { width: 100%; }
+  .hero .lede { font-size: 15.5px; }
+  footer .wrap { flex-direction: column-reverse; align-items: center; text-align: center; }
+  .social { margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .rv { opacity: 1; transform: none; transition: none; }
+  .status i { animation: none; }
+  .btn { transition: none; }
+}
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPC8Y15TBY"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-MPC8Y15TBY');
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="assets/images/mark.svg" width="64" height="64" alt="High Signal Labs">
+    <p class="eyebrow">AI-powered decision intelligence</p>
+    <h1>High Signal <span>Labs</span></h1>
+    <p class="lede">We decode faint signals into bold strategies.<br>Early insights for executives who move first.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#access">Request early access</a>
+      <a class="btn btn-ghost" href="#engine">Our Signal Engine
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="signal" aria-hidden="true">
+    <canvas id="signal"></canvas>
+    <span class="tag l">Noise</span>
+    <span class="tag c">Signal</span>
+    <span class="tag r">Noise</span>
+  </div>
+</header>
+
+<main id="engine">
+  <div class="wrap stack">
+
+    <section class="card rv">
+      <div class="plate">
+        <svg class="ico" viewBox="0 0 120 120" role="img" aria-label="One clear signal rising out of noise"><path class="t" d="M8.0 59.3 10.0 63.6 12.0 58.6 14.0 56.5 16.0 52.5 18.0 56.8 20.0 63.7 22.0 62.6 24.0 63.9 26.0 60.5 28.0 65.3 30.0 60.4 32.0 55.9 34.0 53.2 36.0 55.6 38.0 62.8 40.0 60.3 42.0 63.0 44.0 61.7 46.0 66.3 48.0 62.4 50.0 55.8 52.0 54.5 54.0 54.9 56.0 61.7 58.0 58.3 60.0 61.5 62.0 62.8 64.0 66.7 66.0 64.2 68.0 56.1 70.0 56.2 72.0 55.1 74.0 60.4 76.0 56.6 78.0 59.5 80.0 63.5 82.0 66.4 84.0 65.6 86.0 56.8 88.0 58.0 90.0 56.1 92.0 59.1 94.0 55.5 96.0 57.2 98.0 63.9 100.0 65.7 102.0 66.3 104.0 57.9 106.0 59.7 108.0 57.9 110.0 57.9 112.0 54.8"/><path class="a" d="M8.0 60.0 8.5 60.0 9.0 60.0 9.5 60.0 10.0 60.0 10.5 60.0 11.0 60.0 11.5 60.0 12.0 60.0 12.5 60.0 13.0 60.0 13.5 60.0 14.0 60.0 14.5 60.0 15.0 60.0 15.5 60.0 16.0 60.0 16.5 60.0 17.0 60.0 17.5 60.0 18.0 60.0 18.5 60.0 19.0 60.0 19.5 60.0 20.0 60.0 20.5 60.0 21.0 60.0 21.5 60.0 22.0 60.0 22.5 60.0 23.0 60.0 23.5 60.1 24.0 60.1 24.5 60.1 25.0 60.1 25.5 60.2 26.0 60.2 26.5 60.3 27.0 60.3 27.5 60.4 28.0 60.4 28.5 60.4 29.0 60.5 29.5 60.5 30.0 60.5 30.5 60.5 31.0 60.4 31.5 60.3 32.0 60.2 32.5 60.0 33.0 59.8 33.5 59.6 34.0 59.2 34.5 58.8 35.0 58.4 35.5 58.0 36.0 57.4 36.5 56.9 37.0 56.4 37.5 55.8 38.0 55.3 38.5 54.9 39.0 54.6 39.5 54.3 40.0 54.2 40.5 54.3 41.0 54.6 41.5 55.1 42.0 55.9 42.5 56.9 43.0 58.2 43.5 59.8 44.0 61.6 44.5 63.7 45.0 65.9 45.5 68.3 46.0 70.8 46.5 73.3 47.0 75.7 47.5 78.1 48.0 80.2 48.5 82.0 49.0 83.4 49.5 84.3 50.0 84.7 50.5 84.5 51.0 83.6 51.5 82.1 52.0 79.9 52.5 77.1 53.0 73.6 53.5 69.6 54.0 65.1 54.5 60.2 55.0 55.1 55.5 49.9 56.0 44.7 56.5 39.6 57.0 34.9 57.5 30.7 58.0 27.0 58.5 24.0 59.0 21.8 59.5 20.5 60.0 20.0 60.5 20.5 61.0 21.8 61.5 24.0 62.0 27.0 62.5 30.7 63.0 34.9 63.5 39.6 64.0 44.7 64.5 49.9 65.0 55.1 65.5 60.2 66.0 65.1 66.5 69.6 67.0 73.6 67.5 77.1 68.0 79.9 68.5 82.1 69.0 83.6 69.5 84.5 70.0 84.7 70.5 84.3 71.0 83.4 71.5 82.0 72.0 80.2 72.5 78.1 73.0 75.7 73.5 73.3 74.0 70.8 74.5 68.3 75.0 65.9 75.5 63.7 76.0 61.6 76.5 59.8 77.0 58.2 77.5 56.9 78.0 55.9 78.5 55.1 79.0 54.6 79.5 54.3 80.0 54.2 80.5 54.3 81.0 54.6 81.5 54.9 82.0 55.3 82.5 55.8 83.0 56.4 83.5 56.9 84.0 57.4 84.5 58.0 85.0 58.4 85.5 58.8 86.0 59.2 86.5 59.6 87.0 59.8 87.5 60.0 88.0 60.2 88.5 60.3 89.0 60.4 89.5 60.5 90.0 60.5 90.5 60.5 91.0 60.5 91.5 60.4 92.0 60.4 92.5 60.4 93.0 60.3 93.5 60.3 94.0 60.2 94.5 60.2 95.0 60.1 95.5 60.1 96.0 60.1 96.5 60.1 97.0 60.0 97.5 60.0 98.0 60.0 98.5 60.0 99.0 60.0 99.5 60.0 100.0 60.0 100.5 60.0 101.0 60.0 101.5 60.0 102.0 60.0 102.5 60.0 103.0 60.0 103.5 60.0 104.0 60.0 104.5 60.0 105.0 60.0 105.5 60.0 106.0 60.0 106.5 60.0 107.0 60.0 107.5 60.0 108.0 60.0 108.5 60.0 109.0 60.0 109.5 60.0 110.0 60.0 110.5 60.0 111.0 60.0 111.5 60.0 112.0 60.0"/></svg>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><span class="n">01 /</span> Detect</p>
+        <h2>Companies show their plans before they announce them</h2>
+        <p class="text">New bets, hidden pivots, emerging edges: they surface in hiring, departures and sentiment before they reach a press release. We spot them early, so you act with confidence.</p>
+      </div>
+    </section>
+
+    <section class="card flip rv">
+      <div class="plate">
+        <svg class="ico" viewBox="0 0 120 120" role="img" aria-label="Many inputs distilled into one signal">
+          <path class="t" d="M12 22C44 22 46 60 74 60M12 41C42 41 48 60 74 60M12 60H74M12 79C42 79 48 60 74 60M12 98C44 98 46 60 74 60"/>
+          <circle class="tf" cx="12" cy="22" r="3"/><circle class="tf" cx="12" cy="41" r="3"/><circle class="tf" cx="12" cy="60" r="3"/><circle class="tf" cx="12" cy="79" r="3"/><circle class="tf" cx="12" cy="98" r="3"/>
+          <circle class="glow" cx="74" cy="60" r="13"/>
+          <path class="a" d="M74 60H104"/>
+          <circle class="af" cx="74" cy="60" r="5"/>
+          <circle class="a" cx="108" cy="60" r="4.5"/>
+        </svg>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><span class="n">02 /</span> Distill</p>
+        <h2>More data than any team can read</h2>
+        <p class="text">We collect public and proprietary data on organizational, product and market activity. Our AI distills it into a handful of precise insights, faster than human analysis alone.</p>
+      </div>
+    </section>
+
+    <div class="group rv">
+    <p class="eyebrow">The kind of signals we watch</p>
+    <section class="trio">
+      <div>
+        <svg class="ico" viewBox="0 0 120 120" role="img" aria-label="A trend line projected ahead of now">
+          <path class="t dash" d="M68 14V106"/>
+          <path class="a" d="M12 90 32 78 48 84 68 60"/>
+          <path class="a dash" d="M68 60 86 42 100 30"/>
+          <circle class="af" cx="68" cy="60" r="4.5"/>
+          <circle class="glow" cx="104" cy="26" r="13"/>
+          <circle class="a" cx="104" cy="26" r="5.5"/>
+        </svg>
+        <h3>A hiring surge</h3>
+        <p class="text">A new team forming in a market a competitor hasn&rsquo;t entered yet.</p>
+      </div>
+      <div>
+        <svg class="ico" viewBox="0 0 120 120" role="img" aria-label="One point singled out of a field">
+          <g class="tf">
+            <circle cx="18" cy="18" r="3"/><circle cx="39" cy="18" r="3"/><circle cx="60" cy="18" r="3"/><circle cx="81" cy="18" r="3"/><circle cx="102" cy="18" r="3"/>
+            <circle cx="18" cy="39" r="3"/><circle cx="39" cy="39" r="3"/><circle cx="60" cy="39" r="3"/><circle cx="102" cy="39" r="3"/>
+            <circle cx="18" cy="60" r="3"/><circle cx="39" cy="60" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="81" cy="60" r="3"/><circle cx="102" cy="60" r="3"/>
+            <circle cx="18" cy="81" r="3"/><circle cx="39" cy="81" r="3"/><circle cx="60" cy="81" r="3"/><circle cx="81" cy="81" r="3"/><circle cx="102" cy="81" r="3"/>
+            <circle cx="18" cy="102" r="3"/><circle cx="39" cy="102" r="3"/><circle cx="60" cy="102" r="3"/><circle cx="81" cy="102" r="3"/><circle cx="102" cy="102" r="3"/>
+          </g>
+          <circle class="glow" cx="81" cy="39" r="15"/>
+          <circle class="a" cx="81" cy="39" r="11"/>
+          <circle class="af" cx="81" cy="39" r="4.5"/>
+        </svg>
+        <h3>A quiet exit</h3>
+        <p class="text">Departures clustering in one product group before the roadmap changes.</p>
+      </div>
+      <div>
+        <svg class="ico" viewBox="0 0 120 120" role="img" aria-label="A line breaking through a threshold">
+          <path class="t dash" d="M10 52H110"/>
+          <path class="a" d="M12 94 38 90 58 80 100 24"/>
+          <path class="a" d="M82 22 101 22 103 41"/>
+          <circle class="glow" cx="79" cy="52" r="12"/>
+          <circle class="af" cx="79" cy="52" r="4.5"/>
+        </svg>
+        <h3>A shift in sentiment</h3>
+        <p class="text">Employee or customer mood turning ahead of the numbers.</p>
+      </div>
+    </section>
+    </div>
+
+    <section class="card rv">
+      <div class="plate">
+        <svg class="ico" viewBox="0 0 120 120" role="img" aria-label="Compass bearing">
+          <circle class="t" cx="60" cy="60" r="34"/>
+          <circle class="t dash" cx="60" cy="60" r="18"/>
+          <path class="t" d="M60 4V14M60 106V116M4 60H14M106 60H116"/>
+          <circle class="a" cx="60" cy="60" r="50"/>
+          <path class="glow" d="M88 32 66 66 54 54Z" style="opacity:.22"/>
+          <path class="a" d="M88 32 66 66 32 88 54 54Z"/>
+          <path class="a" d="M54 54 66 66" style="stroke-width:1.5"/>
+          <circle class="af" cx="60" cy="60" r="2.5"/>
+        </svg>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><span class="n">03 /</span> Direct</p>
+        <h2>The Signal Engine</h2>
+        <p class="text">Our Signal Engine fuses AI precision with real-world stakes, surfacing early signals in workforce data, sentiment shifts, and more. Early members receive its findings as briefings, built for leaders who don&rsquo;t wait for answers.</p>
+        <p class="status"><i></i>Preview coming soon</p>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="access" id="access">
+    <div class="wrap rv">
+      <p class="eyebrow">Early access</p>
+      <h2>Join the early group</h2>
+      <p class="text">We&rsquo;re partnering with a select group of strategic leaders to shape the future of AI-powered decision intelligence. If you&rsquo;re open to testing, feedback, or early use, let&rsquo;s connect.</p>
+      <form id="signup" novalidate>
+        <div>
+          <label class="sr" for="f-name">Name</label>
+          <input type="text" id="f-name" name="fname" placeholder="Name" maxlength="128" autocomplete="name" required>
+        </div>
+        <div>
+          <label class="sr" for="f-company">Company name (optional)</label>
+          <input type="text" id="f-company" name="company" placeholder="Company (optional)" maxlength="128" autocomplete="organization">
+        </div>
+        <div class="full">
+          <label class="sr" for="f-email">Email</label>
+          <input type="email" id="f-email" name="email" placeholder="Work email" maxlength="128" autocomplete="email" required>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="f-site">Leave this empty</label>
+          <input type="text" id="f-site" name="site-url" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="full">
+          <button class="btn btn-primary" type="submit">Request early access</button>
+        </div>
+        <p class="msg full" id="signup-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 High Signal Labs&trade;. All rights reserved.</p>
+    <ul class="social">
+      <li><a href="#" data-m="7e141b0c11153e161719160d1719101f12121f1c0d501d1113" aria-label="Email"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M37.5,12.6l-17.5,11.9L2.5,12.6c-.2-.1-.3-.2-.5-.2v-2.7c0-.8.6-1.4,1.4-1.4h33.1c.8,0,1.4.6,1.4,1.4v2.7c-.2,0-.4,0-.5.2ZM19.5,26.3c.2.1.3.2.5.2s.4,0,.5-.2l17.5-11.9v16.9c0,.8-.6,1.4-1.4,1.4H3.4c-.8,0-1.4-.6-1.4-1.4V14.4l17.5,11.9Z"/></svg></a></li>
+      <li><a href="https://www.linkedin.com/company/high-signal-labs/" aria-label="LinkedIn"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12.1,13.8v19.1H5.7V13.8C5.7,13.8,12.1,13.8,12.1,13.8z M12.5,7.9c0,0.9-0.3,1.7-1,2.4c-0.7,0.6-1.5,0.9-2.6,0.9h0 c-1.1,0-1.9-0.3-2.5-0.9c-0.6-0.6-1-1.4-1-2.4c0-1,0.3-1.7,1-2.4S7.9,4.6,9,4.6s1.9,0.3,2.6,0.9S12.5,6.9,12.5,7.9z M35,22v11h-6.4 V22.7c0-1.4-0.3-2.4-0.8-3.2c-0.5-0.8-1.3-1.1-2.4-1.1c-0.8,0-1.5,0.2-2,0.7c-0.5,0.4-1,1-1.2,1.7c-0.1,0.4-0.2,0.9-0.2,1.6v10.7 h-6.4c0-5.1,0-9.3,0-12.5s0-5.1,0-5.7l0-0.9H22v2.8h0c0.3-0.4,0.5-0.8,0.8-1.1c0.3-0.3,0.6-0.6,1.1-1c0.5-0.4,1-0.6,1.7-0.8 c0.7-0.2,1.4-0.3,2.2-0.3c2.2,0,4,0.7,5.3,2.2C34.4,17,35,19.1,35,22L35,22z"/></svg></a></li>
+      <li><a href="https://x.com/HighSignalLabs" aria-label="X"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M36,36l-12.4-18.3,11.6-13.7h-4l-9.4,11-7.5-11H4.2l12,17.7-12.2,14.3h4l9.9-11.7,7.9,11.7h10.2,0ZM13,6.6l18.2,26.9h-4L9,6.6h4Z"/></svg></a></li>
+      <li><a href="https://substack.com/@highsignallabs" aria-label="Substack"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 4h28v3.8H6zM6 11.2h28V15H6zM6 18.4h28V36L20 28.2 6 36z"/></svg></a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* email link: decoded at load so the address is not sitting in the HTML */
+  var mail = '';
+  document.querySelectorAll('a[data-m]').forEach(function (a) {
+    var h = a.getAttribute('data-m'), k = parseInt(h.substr(0, 2), 16), s = '', i;
+    for (i = 2; i < h.length; i += 2) s += String.fromCharCode(parseInt(h.substr(i, 2), 16) ^ k);
+    mail = s; a.href = 'mailto:' + s;
+  });
+
+  /* reveal on scroll */
+  var rv = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    rv.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    rv.forEach(function (el) { io.observe(el); });
+  }
+
+  /* hero: noise that resolves into one clear signal */
+  (function () {
+    var c = document.getElementById('signal');
+    if (!c || !c.getContext) return;
+    var ctx = c.getContext('2d'), W = 0, H = 0, visible = true, raf = 0;
+    function size() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = c.clientWidth; H = c.clientHeight;
+      c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function noise(x, t, s) {
+      return Math.sin(x * .043 + t * 1.3 + s) * .46 + Math.sin(x * .097 - t * .9 + s * 2.1) * .3 +
+             Math.sin(x * .23 + t * 2.1 + s * 3.7) * .16 + Math.sin(x * .51 - t * 3.3 + s * 5.3) * .08;
+    }
+    function trace(t, seed, amp, withSignal) {
+      var cx = W * .5, sig = Math.max(46, Math.min(W * .075, 92)), mid = H * .5, x, d, env, y;
+      ctx.beginPath();
+      for (x = 0; x <= W; x += 2) {
+        d = (x - cx) / sig; env = Math.exp(-d * d);
+        y = mid + noise(x, t, seed) * amp * (1 - env * .9);
+        if (withSignal) y -= env * Math.cos(d * 4.4) * H * .38 * (.9 + .1 * Math.sin(t * .9));
+        if (x) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+      }
+      return { cx: cx, sig: sig };
+    }
+    function draw(ms) {
+      var t = ms / 1000 * .55, g, m;
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.shadowBlur = 0;
+      trace(t * .8, 4.2, H * .13, false); ctx.strokeStyle = 'rgba(120,136,180,.16)'; ctx.lineWidth = 1; ctx.stroke();
+      trace(t * 1.15, 9.7, H * .1, false); ctx.strokeStyle = 'rgba(120,136,180,.22)'; ctx.lineWidth = 1; ctx.stroke();
+      m = trace(t, 1, H * .085, true); ctx.strokeStyle = 'rgba(132,148,192,.5)'; ctx.lineWidth = 1.25; ctx.stroke();
+      g = ctx.createLinearGradient(m.cx - m.sig * 2.4, 0, m.cx + m.sig * 2.4, 0);
+      g.addColorStop(0, 'rgba(255,176,32,0)'); g.addColorStop(.3, 'rgba(255,176,32,1)');
+      g.addColorStop(.7, 'rgba(255,176,32,1)'); g.addColorStop(1, 'rgba(255,176,32,0)');
+      trace(t, 1, H * .085, true);
+      ctx.strokeStyle = g; ctx.lineWidth = 2.5; ctx.shadowColor = 'rgba(255,176,32,.75)'; ctx.shadowBlur = 18; ctx.stroke();
+    }
+    function loop(ms) { draw(ms); if (visible) raf = requestAnimationFrame(loop); }
+    size();
+    addEventListener('resize', function () { size(); if (reduce) draw(1800); });
+    if (reduce) { draw(1800); return; }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        var was = visible; visible = es[0].isIntersecting;
+        if (visible && !was) raf = requestAnimationFrame(loop);
+      }).observe(c);
+    }
+    raf = requestAnimationFrame(loop);
+  })();
+
+  /* signup form */
+  (function () {
+    var f = document.getElementById('signup'), msg = document.getElementById('signup-msg');
+    if (!f) return;
+    var btn = f.querySelector('button[type=submit]'), label = btn.textContent, cfg = window.HSL_FORM || {};
+    function say(kind, text) { msg.className = 'msg full ' + kind; msg.textContent = text; }
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = f.fname.value.trim(), email = f.email.value.trim(), company = f.company.value.trim();
+      if (f['site-url'].value) return;                       /* bots fill the hidden field */
+      if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        say('err', 'Please add your name and a valid email.');
+        (name ? f.email : f.fname).focus(); return;
+      }
+      if (!cfg.endpoint) {
+        location.href = 'mailto:' + mail + '?subject=' + encodeURIComponent('Early access signup') +
+          '&body=' + encodeURIComponent('Name: ' + name + '\nCompany: ' + company + '\nEmail: ' + email);
+        return;
+      }
+      var data = new FormData(), k;
+      data.append('fname', name); data.append('company', company); data.append('email', email);
+      for (k in (cfg.extra || {})) data.append(k, cfg.extra[k]);
+      btn.disabled = true; btn.textContent = 'Sending…'; say('', '');
+      fetch(cfg.endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (o) {
+          if (!r.ok || o.success === false || o.ok === false) throw new Error(o.message || 'failed');
+        }); })
+        .then(function () {
+          f.reset();
+          say('ok', 'Thanks for signing up. You’re on the list. We’ll send early signals your way soon.');
+        })
+        .catch(function () { say('err', 'That didn’t go through. Please try again, or email us directly.'); })
+        .then(function () { btn.disabled = false; btn.textContent = label; });
+    });
+  })();
+})();
+</script>
+</body>
+</html>
