@@ -28,8 +28,8 @@
 /* Signup form settings. endpoint = where submissions are POSTed (Web3Forms, Formspree, etc).
    Leave endpoint empty and the form opens a pre-filled email instead. */
 window.HSL_FORM = {
-  endpoint: "",
-  extra: { subject: "New High Signal Labs signup", from_name: "highsignallabs.com" }
+  endpoint: "https://api.web3forms.com/submit",
+  extra: { access_key: "52dc66f7-e36a-4411-94f3-767648eb6a72", subject: "New access request from highsignallabs.com", from_name: "High Signal Labs website" }
 };
 document.documentElement.className = 'js';
 </script>
@@ -528,7 +528,7 @@ gtag('config', 'G-MPC8Y15TBY');
         return;
       }
       var data = new FormData(), k;
-      data.append('fname', name); data.append('company', company); data.append('email', email);
+      data.append('name', name); data.append('company', company); data.append('email', email);
       for (k in (cfg.extra || {})) data.append(k, cfg.extra[k]);
       btn.disabled = true; btn.textContent = 'Sending…'; say('', '');
       fetch(cfg.endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
